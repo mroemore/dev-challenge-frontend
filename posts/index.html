@@ -7,33 +7,50 @@
 </head>
 <body>
 	<script id="post_template" type="x-tmpl-mustache">
-	  <h3>{{title}}</h3>
-	  <h4>{{description}}</h4>
-      By: {{ author }} on <i>{{publish_date}}</i> <br/>
-      {{content}}
+        <div class="row justify-content-center">
+    	  <h3>{{title}}</h3>
+        </div>
+        <div class="row">
+    	  <div class="col"><h4>{{description}}</h4></div>
+        </div>
+        <div class="row">
+          <div class="col">By: {{ author }} on <i>{{publish_date}}</i> <br/></div>
+        </div>
+        <div class="row">
+          <div class="col">{{{content}}}</div>
+        </div>
     </script>
     <script id="comment_template" type="x-tmpl-mustache">
-    	<div class="comment" id="comment_{{id}}">
-    		{{#parent_id}}
-    			Replying to <b>{{parent_user}}</b>,
-    		{{/parent_id}}
-		On <i>{{date}}</i>, <b>{{user}}</b> commented:<br/>
-		{{content}}
-		<button id="reply_{{id}}" class="reply_btn">Reply</button><button id="edit_{{id}}" class="edit_btn">Edit</button>
+    	<div class="comment " id="comment_{{id}}">
+        <div class="row">
+            <div class="col">
+        	{{#parent_id}}
+        	Replying to <b class="p2">{{parent_user}}</b>
+        	{{/parent_id}}
+    		On <i>{{date}}</i>, <b class="p2">{{user}}</b> commented:
+            </div>
+        </div>
+        <div class="row">
+            {{#parent_id}}{{/parent_id}}<div class="col-sm pull-left">{{content}}</div>
+    		
+    		<button id="reply_{{id}}" class="reply_btn col-xs btn pull-right">Reply</button><button id="edit_{{id}}" class="edit_btn col-xs btn pull-right">Edit</button>
+        </div>
 		</div>
     </script>
-    <div id="post_container">Loading Post...</div>
-    <h5>Comments:</h5>
-    <div id="comments_container">Loading Comments...</div>    
-    <div id="comment_form">
-    	<h5>Leave a comment!</h5>
-    	Name: <br/>
-    	<input id="user_name_in" type="text" name="comment"/><br/>
-    	<div id="reply_text">Replying to <div id="reply_username"></div> <button id="cancel_reply_btn">Cancel reply</button></div>
-    	<div id="edit_text">Editing comment by <div id="edit_username"></div> <button id="cancel_edit_btn">Cancel edit</button></div>
-    	Comment: <br/>
-    	<input id="comment_body_in" type="text" name="comment"/><br/>
-    	<button id="comment_submit_btn">Submit</button>
+    <div  id="bootstrap_container" class="container">
+        <div id="post_container"></div>
+        <h5>Comments:</h5>
+        <div id="comments_container"></div>    
+        <div id="comment_form">
+        	<h5>Leave a comment!</h5>
+        	Name: <br/>
+        	<input id="user_name_in" type="text" name="comment"/><br/>
+        	<div id="reply_text">Replying to&nbsp;<div id="reply_username"></div> <button id="cancel_reply_btn">Cancel reply</button></div>
+        	<div id="edit_text">Editing comment by <div id="edit_username"></div> <button id="cancel_edit_btn">Cancel edit</button></div>
+        	Comment: <br/>
+        	<input id="comment_body_in" type="text" name="comment"/><br/>
+        	<button id="comment_submit_btn">Submit</button>
+        </div>
     </div>
     <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="../node_modules/popper.js/dist/umd/popper.js"></script>

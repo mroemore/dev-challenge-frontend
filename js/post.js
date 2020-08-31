@@ -31,6 +31,7 @@ $("#comments_container").on("click", ".reply_btn", function(){
   console.log(commentData);
   var replyID = buttonID.split('_')[1];
   commentPostData["parent_id"] = replyID;
+  console.log(replyID);
 
   var parentComment = $.grep(commentData, function(obj){return obj.id == replyID;})[0]
   if(parentComment.parent_id){
@@ -55,7 +56,7 @@ $("#comments_container").on("click", ".edit_btn", function(){
   console.log(commentData);
   commentEditID = buttonID.split('_')[1];
 
-  var editComment = $.grep(commentData, function(obj){return obj.id == commentEditID;})[0]
+  var editComment = $.grep(commentData, function(obj){return obj.id == commentEditID;})[0]  
   commentPostData = editComment;
   $("#edit_username").html(editComment.user);
   $("#user_name_in").val(editComment.user);
@@ -72,7 +73,7 @@ $("#comment_submit_btn").click(function(){
   commentPostData["user"] = $("#user_name_in").val();
   commentPostData["content"] = $("#comment_body_in").val();
   var d = new Date();
-  commentPostData["date"] = d.getYear() + "-" + d.getMonth() + "-" + d.getDate();
+  commentPostData["date"] = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
 
   var HTTPMethod = "POST";
   var AJAXURL = "http://localhost:9001/posts/" + postID + "/comments";
@@ -106,13 +107,18 @@ function getComments(){
   $.ajax( "http://localhost:9001/posts/" + postID + "/comments")
     .done(function(data) {
       $("#comments_container").html("");
+      $("#reply_text").hide();
+      $("#edit_text").hide();
+      $("#comment_body_in").val("");
+      editModeEnabled = false;
+      
       commentData = data;
       commentTemplate = $("#comment_template").html();
       console.log(data);
       for(var i = 0; i < commentData.length; i++){
         if(commentData[i].parent_id !== undefined){
           if(commentData[i].parent_id){
-            var parentComment = $.grep(commentData, function(obj){return obj.id === commentData[i].parent_id;})[0]
+            var parentComment = $.grep(commentData, function(obj){return obj.id == commentData[i].parent_id;})[0]
 
             commentData[i]["parent_user"] = parentComment.user;
             var renderedComment = Mustache.render(commentTemplate, commentData[i]);
