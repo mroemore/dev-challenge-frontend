@@ -22,6 +22,7 @@ $.ajax( "http://localhost:9001/posts/" + postID)
   }).fail(function() {
     alert( "error" );
   });
+
 $("#comments_container").on("click", ".reply_btn", function(){
   $("#edit_text").hide();
   editModeEnabled = false;
@@ -55,6 +56,7 @@ $("#comments_container").on("click", ".edit_btn", function(){
   commentEditID = buttonID.split('_')[1];
 
   var editComment = $.grep(commentData, function(obj){return obj.id == commentEditID;})[0]
+  commentPostData = editComment;
   $("#edit_username").html(editComment.user);
   $("#user_name_in").val(editComment.user);
   $("#comment_body_in").val(editComment.content);
@@ -74,10 +76,17 @@ $("#comment_submit_btn").click(function(){
 
   var HTTPMethod = "POST";
   var AJAXURL = "http://localhost:9001/posts/" + postID + "/comments";
+  console.log(editModeEnabled);
+
   if(editModeEnabled){
     HTTPMethod = "PUT";
     AJAXURL = "http://localhost:9001/comments/" + commentEditID;
   }
+
+  console.log(HTTPMethod);
+  console.log("edit id: " + commentEditID);
+  console.log(AJAXURL);
+
   $.ajax({
     type: HTTPMethod,
     url: AJAXURL,
