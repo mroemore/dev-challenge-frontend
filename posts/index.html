@@ -17,12 +17,12 @@
         <div class="row">
           <div class="col">By: {{ author }} on <i>{{publish_date}}</i> <br/></div>
         </div>
-        <div class="row">
-          <div class="col">{{{content}}}</div>
+        <div class="row ">
+          <div class="col post_content border rounded">{{{content}}}</div>
         </div>
     </script>
-    <script id="comment_template" type="x-tmpl-mustache">
-    	<div class="comment " id="comment_{{id}}">
+    <script id="comment_template" type="x-tmpl-mustache">   
+    	<div class="comment border rounded" id="comment_{{id}}">
         <div class="row">
             <div class="col">
         	{{#parent_id}}
@@ -31,11 +31,11 @@
     		On <i>{{date}}</i>, <b class="p2">{{user}}</b> commented:
             </div>
         </div>
-        <div class="row">
-            {{#parent_id}}{{/parent_id}}<div class="col-sm pull-left">{{content}}</div>
+        <div class="row mx-lg-n3">
+            {{#parent_id}}{{/parent_id}}<div class="col-sm py-2 px-lg-5 pull-left comment_text">{{content}}</div>
     		
-    		<div class="pull-right col-xs p5"><button id="reply_{{id}}" class="reply_btn btn btn-secondary">Reply</button></div>
-            <div class="pull-right col-xs p5"><button id="edit_{{id}}" class="edit_btn btn btn-secondary ">Edit</button></div>
+    		<div class="pull-right col-xs "><button id="reply_{{id}}" class="reply_btn btn btn-sm btn-outline-secondary">Reply</button></div>
+            <div class="pull-right col-xs  px-lg-5"><button id="edit_{{id}}" class="edit_btn btn btn-sm btn-outline-secondary ">Edit</button></div>
         </div>
 		</div>
     </script>

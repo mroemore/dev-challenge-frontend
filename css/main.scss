@@ -5,6 +5,12 @@
 		margin-top: 10px;
 		margin-bottom: 30px;
 	}
+	a:link {
+		color: #9966ff;
+	}
+	a:visited {
+		color: #333399;
+	}
 }
 
 .post_wrapper {
@@ -14,5 +20,30 @@
 		padding: 10px;
 		margin-left: 0px;
 		margin-right: 0px;
+	}
+}
+
+#post_container {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.post_content {
+	margin-top: 30px;
+	background-color: #e6e6ff;
+	padding: 10px;
+}
+
+.comment{
+	padding: 10px;
+	margin-top: 10px;
+	background-color: #f0f2f4;
+	.comment_text {
+		margin-right: 10px;
+	}
+
+	button{
+		background-color: #FFF;
+		margin: 2px;
 	}
 }
