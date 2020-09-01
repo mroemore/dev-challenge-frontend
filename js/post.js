@@ -1,3 +1,4 @@
+var apiBaseURL ="http://localhost:9001";
 var postData;
 var commentData;
 var postTemplate;
@@ -10,15 +11,13 @@ var postID = window.location.search.substring(1).split('=')[1];
 $("#reply_text").hide();
 $("#edit_text").hide();
 
-$.ajax( "http://localhost:9001/posts/" + postID)
+$.ajax(apiBaseURL + "/posts/" + postID)
   .done(function(data) {
     postData = data;
     postTemplate = $("#post_template").html();
-    console.log(data);
-    
-      var renderedPost = Mustache.render(postTemplate, postData);
-      $("#post_container").append(renderedPost);
-      getComments()
+    var renderedPost = Mustache.render(postTemplate, postData);
+    $("#post_container").append(renderedPost);
+    getComments()
   }).fail(function() {
     alert( "error" );
   });
@@ -28,10 +27,8 @@ $("#comments_container").on("click", ".reply_btn", function(){
   editModeEnabled = false;
 
   var buttonID = this.id;
-  console.log(commentData);
   var replyID = buttonID.split('_')[1];
   commentPostData["parent_id"] = replyID;
-  console.log(replyID);
 
   var parentComment = $.grep(commentData, function(obj){return obj.id == replyID;})[0]
   if(parentComment.parent_id){
@@ -53,7 +50,6 @@ $("#comments_container").on("click", ".edit_btn", function(){
   editModeEnabled = true;
 
   var buttonID = this.id;
-  console.log(commentData);
   commentEditID = buttonID.split('_')[1];
 
   var editComment = $.grep(commentData, function(obj){return obj.id == commentEditID;})[0]  
@@ -76,17 +72,12 @@ $("#comment_submit_btn").click(function(){
   commentPostData["date"] = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
 
   var HTTPMethod = "POST";
-  var AJAXURL = "http://localhost:9001/posts/" + postID + "/comments";
-  console.log(editModeEnabled);
+  var AJAXURL = apiBaseURL + "/posts/" + postID + "/comments";
 
   if(editModeEnabled){
     HTTPMethod = "PUT";
-    AJAXURL = "http://localhost:9001/comments/" + commentEditID;
+    AJAXURL = apiBaseURL + "/comments/" + commentEditID;
   }
-
-  console.log(HTTPMethod);
-  console.log("edit id: " + commentEditID);
-  console.log(AJAXURL);
 
   $.ajax({
     type: HTTPMethod,
@@ -94,7 +85,6 @@ $("#comment_submit_btn").click(function(){
     data: commentPostData
   })
   .done(function(data) {
-    console.log(data);
     getComments();
   }).fail(function() {
     alert( "error" );
@@ -104,7 +94,7 @@ $("#comment_submit_btn").click(function(){
 
 
 function getComments(){
-  $.ajax( "http://localhost:9001/posts/" + postID + "/comments")
+  $.ajax( apiBaseURL + "/posts/" + postID + "/comments")
     .done(function(data) {
       $("#comments_container").html("");
       $("#reply_text").hide();
@@ -114,7 +104,6 @@ function getComments(){
       
       commentData = data;
       commentTemplate = $("#comment_template").html();
-      console.log(data);
       for(var i = 0; i < commentData.length; i++){
         if(commentData[i].parent_id !== undefined){
           if(commentData[i].parent_id){
@@ -132,6 +121,5 @@ function getComments(){
           $("#comments_container").append(renderedComment); 
         }
       }
-      console.log(commentData); 
     });
 }

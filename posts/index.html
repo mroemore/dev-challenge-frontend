@@ -4,6 +4,7 @@
 	<title>Blog Post</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
 </head>
 <body>
 	<script id="post_template" type="x-tmpl-mustache">
@@ -11,7 +12,7 @@
     	  <h3>{{title}}</h3>
         </div>
         <div class="row">
-    	  <div class="col"><h4>{{description}}</h4></div>
+    	  <div class="col"><h4 class="lead">{{description}}</h4></div>
         </div>
         <div class="row">
           <div class="col">By: {{ author }} on <i>{{publish_date}}</i> <br/></div>
@@ -33,7 +34,8 @@
         <div class="row">
             {{#parent_id}}{{/parent_id}}<div class="col-sm pull-left">{{content}}</div>
     		
-    		<button id="reply_{{id}}" class="reply_btn col-xs btn pull-right">Reply</button><button id="edit_{{id}}" class="edit_btn col-xs btn pull-right">Edit</button>
+    		<div class="pull-right col-xs p5"><button id="reply_{{id}}" class="reply_btn btn btn-secondary">Reply</button></div>
+            <div class="pull-right col-xs p5"><button id="edit_{{id}}" class="edit_btn btn btn-secondary ">Edit</button></div>
         </div>
 		</div>
     </script>
@@ -42,14 +44,50 @@
         <h5>Comments:</h5>
         <div id="comments_container"></div>    
         <div id="comment_form">
-        	<h5>Leave a comment!</h5>
-        	Name: <br/>
-        	<input id="user_name_in" type="text" name="comment"/><br/>
-        	<div id="reply_text">Replying to&nbsp;<div id="reply_username"></div> <button id="cancel_reply_btn">Cancel reply</button></div>
-        	<div id="edit_text">Editing comment by <div id="edit_username"></div> <button id="cancel_edit_btn">Cancel edit</button></div>
-        	Comment: <br/>
-        	<input id="comment_body_in" type="text" name="comment"/><br/>
-        	<button id="comment_submit_btn">Submit</button>
+            <div class="row">
+        	<div class="col"><h5>Leave a comment!</h5></div>
+            </div>
+
+            <div class="row">
+             <div class="col">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Name</span>
+                  </div>
+                  <input id="user_name_in" type="text" class="form-control" placeholder="..." aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="col"></div>   
+            </div>
+             <div id="reply_text" class="row">
+                <div class="col">Replying to&nbsp;<div id="reply_username"></div>
+                </div>
+                <div class="col-sm pull-right">
+                    <button class="btn btn-warning" id="cancel_reply_btn">Cancel Reply</button>
+                </div>
+            </div> 
+
+        	<div id="edit_text" class="row">
+                <div class="col">Editing comment by <div id="edit_username"></div>
+                </div>
+                <div class="col-sm pull-right">
+                    <button class="btn btn-warning" id="cancel_edit_btn">Cancel Edit</button>
+                </div>  
+            </div>   
+
+        	<div class="row">
+             <div class="col">
+                 <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Comment</span>
+                  </div>
+                  <textarea class="form-control" id="comment_body_in" aria-label="With textarea"></textarea>
+                </div>
+             </div>   
+             <div class="col"><button class="btn btn-primary" id="comment_submit_btn">Submit</button></div>
+            </div>
+            
+        	
         </div>
     </div>
     <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
